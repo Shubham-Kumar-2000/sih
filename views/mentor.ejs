@@ -22,6 +22,9 @@
 		<label for="et">Education Tier</label>
 		<input name="etier" class="form-control" id="et" type="number" required readonly>
 
+		<label for="et">Age</label>
+		<input name="Age" class="form-control" id="age" type="number" required readonly>
+
 		<label for="we">Working Experience</label>
 		<input name="exp" class="form-control" id="we" type="number" required readonly>
 
@@ -219,6 +222,7 @@
 		document.getElementById('ef').value=data.educationFeild;
 		document.getElementById('rc').value=data.ratingCount;
 		document.getElementById('r').value=data.ratings;
+		document.getElementById('age').value=data.Age;
 		data.startUps.forEach(element => {
 			document.getElementById('tableBody').innerHTML=document.getElementById('tableBody').innerHTML+'<tr><td>'+element.companyName+'</td><td>'+element.companyWorth+'</td><td>'+element.years+'</td><td>'+element.mentorFeild+'</td></tr>';
 		});

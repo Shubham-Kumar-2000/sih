@@ -5,6 +5,10 @@ var mentorSchema = new Schema(
       'name':{
           type:String
       },
+      'Age':{
+        type:Number,
+        default:40
+        },
       'educationTier':{
           type:Number,
           default:0

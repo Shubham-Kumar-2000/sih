@@ -8,6 +8,7 @@ router.get('/metadata',function(req, res, next) {
     let worth=[10000,30000,50000,100000,500000];
     let data={
         name:fake.name.firstName()+" "+fake.name.lastName(),
+        Age:Math.floor(Math.random()*30)+25,
         educationTier:Math.floor(Math.random()*3)+1,
         workingExp:Math.floor(Math.random()*15)+1,
         fees:Math.floor(Math.random()*1000),
@@ -39,6 +40,7 @@ router.get('/metadata',function(req, res, next) {
 router.post('/add',function(req, res, next) {
     let data={
         name:req.body.name,
+        Age:req.body.Age,
         educationTier:req.body.educationTier,
         workingExp:req.body.workingExp,
         fees:req.body.fees,
