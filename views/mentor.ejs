@@ -190,9 +190,9 @@
 		mentor.humanResource=document.getElementById('h').value;
 		mentor.marketing=document.getElementById('m').value;
 		mentor.overall=document.getElementById('ov').value;
-		$.post('http://localhost:4000/api/mentor/add/',mentor,(data,status)=>{
+		$.post('https://vast-earth-58047.herokuapp.com/api/mentor/add/',mentor,(data,status)=>{
 			document.getElementById('res').innerHTML=JSON.stringify(data)
-			$.get('http://localhost:4000/api/mentor/metadata/',(data,status)=>{
+			$.get('https://vast-earth-58047.herokuapp.com/api/mentor/metadata/',(data,status)=>{
 				mentor=data;
 				document.getElementById('name').value=data.name;
 				document.getElementById('et').value=data.educationTier;
@@ -209,7 +209,7 @@
 		})
 	}
 	let mentor={};
-	$.get('http://localhost:4000/api/mentor/metadata/',(data,status)=>{
+	$.get('https://vast-earth-58047.herokuapp.com/api/mentor/metadata/',(data,status)=>{
 		mentor=data;
 		document.getElementById('name').value=data.name;
 		document.getElementById('et').value=data.educationTier;
