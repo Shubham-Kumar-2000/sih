@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>mentor</title>
+  <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+	<link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+<div class="container box">
+<form>
+	<br>
+	<div class="form-group">
+		<label for="name">Name</label>
+		<input name="user" class="form-control" id="name" type="text" required readonly>
+		
+		<label for="et">Education Tier</label>
+		<input name="etier" class="form-control" id="et" type="number" required readonly>
+
+		<label for="we">Working Experience</label>
+		<input name="exp" class="form-control" id="we" type="number" required readonly>
+
+		<label for="f">Fees</label>
+		<input name="fees" class="form-control" id="f" type="number" required readonly>
+
+		<label for="bf">Biased Field</label>
+		<input name="bfield" class="form-control" id="bf" type="text" required readonly>
+
+		<label for="ef">Education Field</label>
+		<input name="efield" class="form-control" id="ef" type="text" required readonly>
+		
+		<label for="r">Ratings</label>
+		<input name="rate" class="form-control" id="r" type="number" required readonly>
+
+		<label for="rc">Rating Count</label>
+		<input name="count" class="form-control" id="rc" type="number" required readonly>
+
+	</div>
+</form>
+<br>
+<table class="table table-responsive table-hover table-bordered">
+	<thead>
+		<tr>
+			<th>Company Name</th>
+			<th>Worth</th>
+			<th>Years</th>
+			<th>Mentor Field</th>
+		</tr>
+	</thead>
+
+	<tbody id="tableBody">
+		
+	</tbody>	
+
+</table>
+
+<form>
+	<br>
+	<div class="form-group">
+		<label for="t">Tech</label>
+    	<select class="form-control" id="t">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+		
+		<label for="fi">Finance</label>
+    	<select class="form-control" id="fi">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select> 
+
+    	<label for="o">Operation</label>
+    	<select class="form-control" id="o">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+
+    	<label for="l">Law</label>
+    	<select class="form-control" id="l">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+
+    	<label for="m">Marketing</label>
+    	<select class="form-control" id="m">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+
+    	<label for="c">Connection</label>
+    	<select class="form-control" id="c">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+
+    	<label for="h">Human Resources</label>
+    	<select class="form-control" id="h">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+
+    	<label for="ov">Overall</label>
+    	<select class="form-control" id="ov">
+      		<option>1</option>
+      		<option>2</option>
+     		<option>3</option>
+      		<option>4</option>
+      		<option>5</option>
+      		<option>6</option>
+      		<option>7</option>
+     		<option>8</option>
+      		<option>9</option>
+      		<option>10</option>
+    	</select>
+		
+	</div>
+</form>
+<div><button onclick="send()" name="submit" class="btn btn-success">Submit</button></div></div>
+<br>
+<div id='res'></div>
+</div>
+<script>
+	function send(){
+		mentor.tech=document.getElementById('t').value;
+		mentor.finance=document.getElementById('fi').value;
+		mentor.operation=document.getElementById('o').value;
+		mentor.law=document.getElementById('l').value;
+		mentor.connection=document.getElementById('c').value;
+		mentor.humanResource=document.getElementById('h').value;
+		mentor.marketing=document.getElementById('m').value;
+		mentor.overall=document.getElementById('ov').value;
+		$.post('http://localhost:4000/api/mentor/add/',mentor,(data,status)=>{
+			document.getElementById('res').innerHTML=JSON.stringify(data)
+			$.get('http://localhost:4000/api/mentor/metadata/',(data,status)=>{
+				mentor=data;
+				document.getElementById('name').value=data.name;
+				document.getElementById('et').value=data.educationTier;
+				document.getElementById('we').value=data.workingExp;
+				document.getElementById('f').value=data.fees;
+				document.getElementById('bf').value=data.biasedFeild;
+				document.getElementById('ef').value=data.educationFeild;
+				document.getElementById('rc').value=data.ratingCount;
+				document.getElementById('r').value=data.ratings;
+				data.startUps.forEach(element => {
+					document.getElementById('tableBody').innerHTML=document.getElementById('tableBody').innerHTML+'<tr><td>'+element.companyName+'</td><td>'+element.companyWorth+'</td><td>'+element.years+'</td><td>'+element.mentorFeild+'</td></tr>';
+				});
+			})
+		})
+	}
+	let mentor={};
+	$.get('http://localhost:4000/api/mentor/metadata/',(data,status)=>{
+		mentor=data;
+		document.getElementById('name').value=data.name;
+		document.getElementById('et').value=data.educationTier;
+		document.getElementById('we').value=data.workingExp;
+		document.getElementById('f').value=data.fees;
+		document.getElementById('bf').value=data.biasedFeild;
+		document.getElementById('ef').value=data.educationFeild;
+		document.getElementById('rc').value=data.ratingCount;
+		document.getElementById('r').value=data.ratings;
+		data.startUps.forEach(element => {
+			document.getElementById('tableBody').innerHTML=document.getElementById('tableBody').innerHTML+'<tr><td>'+element.companyName+'</td><td>'+element.companyWorth+'</td><td>'+element.years+'</td><td>'+element.mentorFeild+'</td></tr>';
+		});
+	})
+</script>
+</body>
+</html>

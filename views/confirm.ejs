@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Confirm Account</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <h1>Confirming.......</h1>
+    <div style="display: none;" id='mode'><%=mode%></div>
+    <div style="display: none;" id='email'><%=email%></div>
+    <div style="display: none;" id='tmp'><%=id%></div>
+    <script>
+        let url='';
+        if(document.getElementById('mode').innerHTML=='1')  
+        url="http://localhost:4000/api/users/confirm/"+document.getElementById('tmp').innerHTML;
+        else
+        url="http://localhost:4000/api/users/confirmPassword/"+document.getElementById('email').innerHTML+"/"+document.getElementById('tmp').innerHTML;
+        
+        $.get(url,(data,status)=>{
+        if(status==="success")
+        {if(data.error)
+        alert(data.msg)
+        else
+        {
+          if(document.getElementById('mode').innerHTML=='1')
+          {alert("Email Verified and Logged in ")
+          localStorage.email=data.email
+          }
+          else
+          {alert("Password changed");}
+          window.location = "http://localhost:4000/";
+        }
+        }
+        else
+        alert("error");
+        })
+    </script>
+  </body>
+</html>

@@ -1,0 +1,74 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+var mentorSchema = new Schema(
+    {
+      'name':{
+          type:String
+      },
+      'educationTier':{
+          type:Number,
+          default:0
+      },
+      'workingExp':{
+          type:Number,
+          default:1
+      },
+      'startUps':{
+          type:Array,
+          default:[]
+      },
+      'tech':{
+          type:Number,
+          default:5
+      },
+      'finance':{
+          type:Number,
+          default:5
+      },
+      'operation':{
+          type:Number,
+          default:5
+      },
+      'law':{
+          type:Number,
+          default:5
+      },
+      'connection':{
+          type:Number,
+          default:5
+      },
+      'humanResource':{
+          type:Number,
+          default:5
+      },
+      'marketing':{
+          type:Number,
+          default:5
+      },
+      'overall':{
+          type:Number,
+          default:5
+      },
+      'fees':{
+          type:Number
+      },
+      'biasedFeild':{
+          type:String,
+          enum:['tech','finance','operation','law','connection','humanResource','marketing','overall']
+      },
+      'educationFeild':{
+          type:String,
+          enum:['tech','finance','operation','law','connection','humanResource','marketing','others']
+      },
+      'ratings':{
+          type:Number,
+          default:3
+      },
+      'ratingCount':{
+          type:Number,
+          default:0
+      }
+    });
+    
+    module.exports = mongoose.model('mentor', mentorSchema);
+    

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script
+  src="https://code.jquery.com/jquery-3.4.1.min.js"
+  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+  crossorigin="anonymous"></script>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js" integrity="sha384-aJ21OjlMXNL5UyIl/XNwTMqvzeRMZH2w8c5cRVpzpU8Y5bApTppSuUkhZXN0VxHd" crossorigin="anonymous"></script>
+  <script>
+    if(localStorage.email&&localStorage.email!='undefined'){
+      window.location='http://localhost:4000/'
+    }
+  </script>
+  </head>
+  <body>
+    <h1><%= title %></h1>
+    <input type='text' placeholder="email" id="email" required/>
+    <input type="text" placeholder="password" id="pass" required/><br/>
+    <br/>
+    <div id='confirm' style="display: none;">Do you want to disconnect previous device? <div onclick="send(1,1)" class="btn btn-danger">Yes</div><div onclick="window.location='http://localhost:4000/'" class="btn btn-success">No</div></div>
+    <%if (signup==true){%> <div onclick="send(0,0)" class="btn btn-primary">Submit</div><%} else {%><div onclick="send(1,0)" class="btn btn-primary">Submit</div><%}%>
+    <div id="res"></div>
+    <script>
+        function send(e,confirm){
+          if( !(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(document.getElementById("email").value))){
+            alert("You have entered an invalid email address!")
+            return
+          }
+            var user={ email:document.getElementById("email").value,
+             password:document.getElementById("pass").value,
+          confirm:confirm,
+        userid:'18aqldqogk0ziw408'}
+            if(user.name!==null&&user.email!==null&&user.pass!==null)
+            {   
+              let url="http://localhost:4000/api/users/signUp";  
+              if(e==1)
+                url="http://localhost:4000/api/users/logIn";
+                
+                $.post(url,user,(data,status)=>{
+                    if(status==="success")
+                    {if(e==0&&data.sign)
+                    {alert("Signed Up!!! Check email to verify");
+                    window.location='http://localhost:4000/'}
+                    else if (e==1&&data.login)
+                    {
+                      alert("logged In")
+                      localStorage.email=data.email
+                      window.location='http://localhost:4000/'
+                    }
+                    else if(e==1&&data.confirm==1)
+                    document.getElementById('confirm').style.display='block'
+                    else
+                    alert(data.msg)}
+                    else
+                    alert("error");
+                })
+            }
+        }
+    </script>
+  </body>
+</html>
