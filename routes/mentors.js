@@ -28,7 +28,7 @@ router.get('/metadata',function(req, res, next) {
     i=0;
     while(i<num){
         data.startUps.push({
-            years:Math.floor(Math.random()*8),
+            years:Math.floor(Math.random()*8)+1,
             companyName:fake.company.companyName(),
             companyWorth:Math.floor(Math.random()*worth[Math.floor(Math.random()*5)]),
             mentorFeild:bfeilds[Math.floor(Math.random()*8)]
