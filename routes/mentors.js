@@ -38,6 +38,19 @@ router.get('/metadata',function(req, res, next) {
     res.status(200).json(data);
 })
 router.post('/add',function(req, res, next) {
+    console.log(req.body)
+    let start=[];
+    let i=0;
+    while(i<req.body.statUpLength)
+    {
+        start.push({
+            years:parseInt(req.body['startUps['+i+'][years]']),
+            companyName:req.body['startUps['+i+'][companyName]'],
+            companyWorth:req.body['startUps['+i+'][companyWorth]'],
+            mentorFeild:req.body['startUps['+i+'][mentorFeild]']
+        })
+        i=i+1
+    }
     let data={
         name:req.body.name,
         Age:req.body.Age,
@@ -47,7 +60,7 @@ router.post('/add',function(req, res, next) {
         biasedFeild:req.body.biasedFeild,
         educationFeild:req.body.educationFeild,
         ratingCount:req.body.ratingCount,
-        startUps:req.body.startUps,
+        startUps:start,
         ratings:req.body.ratings,
         tech:req.body.tech,
         finance:req.body.finance,
