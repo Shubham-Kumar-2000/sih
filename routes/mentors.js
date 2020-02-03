@@ -2,6 +2,23 @@ var express = require('express');
 var router = express.Router();
 var fake=require('faker');
 var mentor=require('../model/mentor')
+function randive(num){
+    if(Math.floor(Math.random()*2)==0)
+    return num;
+    else
+    return (0-num);
+}
+function minMaxScaler(val,min,max){
+    if(min < 0){
+        max += 0 - min;
+        val += 0 - min;
+        min = 0;
+      }
+      // Shift values from 0 - max
+      val = val - min;
+      max = max - min;
+      return Math.max(0, Math.min(1, val / max));
+}
 router.get('/metadata',function(req, res, next) {
     let bfeilds=['tech','finance','operation','law','connection','humanResource','marketing','overall'];
     let efeilds=['tech','finance','operation','law','connection','humanResource','marketing','others'];
@@ -16,24 +33,100 @@ router.get('/metadata',function(req, res, next) {
         educationFeild:efeilds[Math.floor(Math.random()*8)],
         ratingCount:Math.floor(Math.random()*100)+1,
         startUps:[],
-        ratings:Math.floor(Math.random()*5)
+        ratings:Math.floor(Math.random()*5)+1
     }
     i=1;
     while(i<data.ratingCount){
-        data.ratings=(data.ratings+Math.floor(Math.random()*5));
+        data.ratings=(data.ratings+Math.floor(Math.random()*5)+1);
         i=i+1;
     }
     data.ratings=data.ratings/data.ratingCount;
     let num=Math.floor(Math.random()*12)+1;
     i=0;
+    let domainData=[
+        {
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        },{
+            totalYrs:0,
+            maxWorth:0,
+            yrsOnMax:0,
+            count:0
+        }
+    ];
+    let maxWorth=0;
+    let totalYrs=0;
     while(i<num){
+        let yrs=Math.floor(Math.random()*8)+1;
+        let ind=Math.floor(Math.random()*8);
+        let worths=Math.floor(Math.random()*worth[Math.floor(Math.random()*5)]);
         data.startUps.push({
-            years:Math.floor(Math.random()*8)+1,
+            years:yrs,
             companyName:fake.company.companyName(),
-            companyWorth:Math.floor(Math.random()*worth[Math.floor(Math.random()*5)]),
-            mentorFeild:bfeilds[Math.floor(Math.random()*8)]
-        })
-        i=i+1
+            companyWorth:worths,
+            mentorFeild:bfeilds[ind]
+        });
+        if(worths>maxWorth)
+        maxWorth=worths;
+        domainData[ind].count++;
+        domainData[ind].totalYrs+=yrs;
+        totalYrs+=yrs;
+        if(domainData[ind].maxWorth<worths){
+            domainData[ind].maxWorth=worths;
+            domainData[ind].yrsOnMax=yrs
+        }
+        i=i+1;
+    }
+    ratingCoef=minMaxScaler(data.ratings*(data.ratingCount/3)+randive(Math.floor(Math.random()*10)),-20,5*(100/3))*2;
+    data.domainData=domainData;
+    data.ratingCoef=ratingCoef;
+    i=0;
+    while(i<8){
+        data[bfeilds[i]]=((ratingCoef*2)*(((domainData[i].maxWorth/maxWorth)*domainData[i].yrsOnMax)+domainData[i].totalYrs/totalYrs+domainData[i].count/data.startUps.length)+Math.pow(1.07,data.workingExp))*Math.pow(1.012,data.Age)+(3*0.6/(3*data.educationTier));
+        data[bfeilds[i]]+=minMaxScaler(totalYrs,0,totalYrs+data.workingExp+data.Age)*data.startUps.length*0.3;
+        if(i==4){
+            data[bfeilds[i]]+=(3*0.4/(3*data.educationTier))
+        }
+        if(data.educationFeild==efeilds[i])
+        data[bfeilds[i]]*=1.5;
+        else
+        data[bfeilds[i]]*=0.9;
+        if(data.biasedFeild==bfeilds[i])
+        data[bfeilds[i]]+=1;
+        data[bfeilds[i]]=Math.ceil(minMaxScaler(data[bfeilds[i]],1,10)*10)
+        i++;
     }
     res.status(200).json(data);
 })
@@ -69,7 +162,7 @@ router.post('/add',function(req, res, next) {
         connection:req.body.connection,
         humanResource:req.body.humanResource,
         marketing:req.body.marketing,
-        overall:req.body.overall,
+        overall:req.body.overall
     }
     let men=new mentor(data)
     men.save().then(result=>{
