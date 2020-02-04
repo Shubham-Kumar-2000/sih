@@ -171,4 +171,18 @@ router.post('/add',function(req, res, next) {
         res.status(200).json({err:true,msg:err})
     })
 })
+router.get('/count/',function(req, res, next) {
+    mentor.find(function(err,result){
+        if(err)
+        res.render('showViews',{
+            count:0,
+            err:err
+        })
+        else
+        res.render('showViews',{
+            count:result.length,
+            err:err
+        })
+    })
+})
 module.exports = router;
