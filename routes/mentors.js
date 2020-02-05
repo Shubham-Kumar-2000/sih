@@ -120,10 +120,17 @@ router.get('/metadata',function(req, res, next) {
             data[bfeilds[i]]+=(3*0.4/(3*data.educationTier))
         }
         if(data.educationFeild==efeilds[i])
-        data[bfeilds[i]]*=1.5;
+        {
+            if(data[bfeilds[i]]<=3)
+            data[bfeilds[i]]*=1.5;
+            if((data[bfeilds[i]]>3)&&(data[bfeilds[i]]<=5))
+            data[bfeilds[i]]*=1.25;
+            if((data[bfeilds[i]]>5)&&(data[bfeilds[i]]<8))
+            data[bfeilds[i]]*=1.125;
+        }
         else
         data[bfeilds[i]]*=0.9;
-        if(data.biasedFeild==bfeilds[i])
+        if((data.biasedFeild==bfeilds[i])&&(data[bfeilds[i]]<8))
         data[bfeilds[i]]+=1;
         data[bfeilds[i]]=Math.ceil(minMaxScaler(data[bfeilds[i]],1,10)*10)
         i++;
